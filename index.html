@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hard Times in Altdorf</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&family=Alegreya:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a single river-fog column like a pamphlet; a short nav for future player pages; tables as ruled rows you can roll on. */
+:root {
+  --paper: #e6eae7;
+  --paper-2: #d9dfdb;
+  --ink: #1d2320;
+  --ink-soft: #4a554f;
+  --rule: #b7c0bb;
+  --blood: #7b1e2b;
+  --blood-wash: #ecd6d8;
+  --font-display: "IM Fell English SC", "IM Fell English", Georgia, "Times New Roman", serif;
+  --font-display-ital: "IM Fell English", Georgia, serif;
+  --font-body: "Alegreya", Georgia, "Times New Roman", serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #131715; --paper-2: #1c221f; --ink: #dde3df; --ink-soft: #9aa69f;
+    --rule: #333c37; --blood: #e0808c; --blood-wash: #3a1c21; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #131715; --paper-2: #1c221f; --ink: #dde3df; --ink-soft: #9aa69f;
+  --rule: #333c37; --blood: #e0808c; --blood-wash: #3a1c21; color-scheme: dark;
+}
+
+body { margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.55;
+}
+.wrap {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 1.5rem 4rem;
+  display: grid;
+  gap: 2.25rem;
+}
+
+/* Masthead */
+.mast { display: grid; gap: .6rem; border-bottom: 3px double var(--rule); padding-bottom: 1rem; }
+.mast .eyebrow {
+  font-family: var(--font-mono); font-size: .72rem; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--ink-soft);
+}
+.mast h1 {
+  font-family: var(--font-display); font-weight: 400;
+  font-size: clamp(2.2rem, 7vw, 3.4rem); line-height: 1; margin: 0;
+  text-wrap: balance;
+}
+.mast h1 .amp { color: var(--blood); }
+nav ul { list-style: none; display: flex; flex-wrap: wrap; gap: .25rem 1.25rem; margin: .25rem 0 0; padding: 0; }
+nav a {
+  font-family: var(--font-mono); font-size: .8rem; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--ink-soft); text-decoration: none; padding: .2rem 0; border-bottom: 2px solid transparent;
+}
+nav a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--blood); }
+nav a:hover { color: var(--ink); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--blood); outline-offset: 3px; border-radius: 2px; }
+
+/* Page intro */
+.intro { display: grid; gap: .9rem; }
+.intro h2 {
+  font-family: var(--font-display-ital); font-style: italic; font-weight: 400;
+  font-size: clamp(1.6rem, 4.5vw, 2.1rem); line-height: 1.15; margin: 0; text-wrap: balance;
+}
+.intro p { margin: 0; max-width: 62ch; }
+.steps { margin: 0; padding-left: 1.4rem; display: grid; gap: .55rem; max-width: 62ch; }
+.steps li::marker { font-family: var(--font-mono); color: var(--blood); font-weight: 600; }
+.steps strong { font-weight: 700; }
+
+/* Tables */
+.tbl { display: grid; gap: .9rem; }
+.tbl-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: .75rem 1rem; }
+.tbl-head > div { min-width: 0; display: grid; gap: .25rem; }
+.tbl h3 { font-family: var(--font-display); font-weight: 400; font-size: 1.55rem; line-height: 1.1; margin: 0; }
+.tbl h3 .die { font-family: var(--font-mono); font-size: .8rem; color: var(--ink-soft); letter-spacing: .08em; margin-left: .35rem; vertical-align: middle; }
+.tbl .sub { margin: 0; color: var(--ink-soft); font-size: .98rem; max-width: 60ch; }
+
+.roll-btn {
+  font-family: var(--font-mono); font-size: .85rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+  background: var(--ink); color: var(--paper); border: 0; border-radius: 3px;
+  padding: .6rem 1rem; cursor: pointer; display: inline-flex; gap: .5rem; align-items: center;
+}
+.roll-btn:hover { background: var(--blood); }
+.roll-btn svg { width: 1em; height: 1em; }
+
+.result {
+  display: grid; grid-template-columns: auto 1fr; gap: .2rem 1rem; align-items: baseline;
+  background: var(--blood-wash); border-left: 4px solid var(--blood);
+  padding: .8rem 1rem;
+}
+.result .num { font-family: var(--font-mono); font-size: 2rem; font-weight: 600; color: var(--blood); line-height: 1; font-variant-numeric: tabular-nums; grid-row: span 2; }
+.result .txt { min-width: 0; }
+.result .thr { min-width: 0; font-size: .95rem; color: var(--ink-soft); }
+.result .thr b { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; margin-right: .4rem; color: var(--ink); }
+
+.rows { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
+.rows li {
+  display: grid; grid-template-columns: 4.2rem 1fr; gap: .15rem .9rem;
+  padding: .6rem .5rem .6rem 0; border-bottom: 1px solid var(--rule);
+  transition: background-color .25s ease;
+}
+.rows .rng { font-family: var(--font-mono); font-size: .85rem; color: var(--ink-soft); padding-top: .15rem; font-variant-numeric: tabular-nums; padding-left: .5rem; }
+.rows .txt { min-width: 0; }
+.rows .thr { grid-column: 2; min-width: 0; font-size: .92rem; color: var(--ink-soft); font-style: italic; }
+.rows .thr::before { content: "Thread: "; font-style: normal; font-family: var(--font-mono); font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; }
+.rows li.hit { background: var(--blood-wash); }
+.rows li.hit .rng { color: var(--blood); font-weight: 600; }
+
+footer { color: var(--ink-soft); font-size: .9rem; border-top: 1px solid var(--rule); padding-top: 1rem; }
+footer p { margin: 0; max-width: 62ch; }
+
+@media (prefers-reduced-motion: reduce) { .rows li { transition: none; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="mast">
+    <div class="eyebrow">Player reference · Warhammer Fantasy Roleplay</div>
+    <h1>Hard Times <span class="amp">in</span> Altdorf</h1>
+    <nav aria-label="Player pages">
+      <ul id="nav"></ul>
+    </nav>
+  </header>
+
+  <main id="view-hooks" data-view="hooks">
+    <section class="intro">
+      <h2>How you came to be here</h2>
+      <p>Before the first session, every character rolls on two tables. The first ties you to someone else in the crew. The second is something strange that happened to you this past year, which you still can't explain.</p>
+      <ol class="steps">
+        <li><strong>Make someone who goes toward trouble,</strong> and who would stick with this crew once it finds them.</li>
+        <li><strong>Roll on Bonds</strong> and apply the result to the character of the player on your left. That player can accept it or make you reroll once.</li>
+        <li><strong>Roll on Something Strange.</strong> Write what you saw and what you did about it, in your own words. Don't ask the GM what it means. Your character doesn't know either.</li>
+        <li><strong>Write one thread on your sheet</strong> for each result: a name, an object, or a question.</li>
+      </ol>
+    </section>
+
+    <section class="tbl" id="bonds" aria-labelledby="bonds-h"></section>
+    <section class="tbl" id="strange" aria-labelledby="strange-h"></section>
+  </main>
+
+  <footer>
+    <p>The Reik runs brown, the rain won't stop, and the bread costs more every week. Welcome to Altdorf.</p>
+  </footer>
+</div>
+
+<script>
+// Add a page here when it's ready; the nav builds itself.
+const PAGES = [
+  { id: "hooks", label: "Character hooks" }
+];
+
+// Each table: entries in order. Ranges are written out so new entries can narrow old ones.
+const TABLES = {
+  bonds: {
+    title: "Bonds",
+    sub: "Roll once and apply it to the character on your left.",
+    rows: [
+      ["01–05", "They pulled you out of the Reik when you were drowning.", "Who put you in the water?"],
+      ["06–10", "They owe you a lot of money and have paid back none of it.", "What they spent it on"],
+      ["11–15", "You shared a leaking tenement room for a year.", "The landlord"],
+      ["16–20", "The same person cheated you both.", "Name the cheat"],
+      ["21–25", "You're kin: cousins, half-siblings, or in-laws.", "The relative who disapproves of you both"],
+      ["26–30", "You lied to the Watch to cover for them.", "The watchman who still suspects"],
+      ["31–35", "You both survived the same fire, flood, or plague ward.", "A third survivor who came out changed"],
+      ["36–40", "They know your worst secret and have kept it.", "The secret (tell the GM privately)"],
+      ["41–45", "The same master trained you both, then threw you both out.", "The master"],
+      ["46–50", "You drink at the same tavern most nights.", "The tavern and its keeper"],
+      ["51–55", "You were rivals until something forced a truce.", "What forced it"],
+      ["56–60", "They nursed you through a fever when no one else would.", "Who paid the physician"],
+      ["61–65", "You both have a stake in a scheme that hasn't paid off yet.", "The scheme"],
+      ["66–70", "You were hired for the same job, and it went badly wrong.", "The employer who blames you"],
+      ["71–75", "You both lost the same person: a lover, friend, or mentor.", "What happened to them"],
+      ["76–80", "They saved someone in your family.", "That family member"],
+      ["81–85", "You took the blame for something they did.", "What it cost you"],
+      ["86–90", "You pray at the same shrine.", "The priest"],
+      ["91–95", "You met in the bread line at the Dove of Love soup kitchen.", "What you each needed that day"],
+      ["96–00", "You don't like them, but someone you both respect asked you to look out for them.", "That someone"]
+    ]
+  },
+  strange: {
+    title: "Something Strange Happened",
+    sub: "Sometime in the last year, this happened to you. Describe how it felt and what you did. Duplicate results are rerolled.",
+    rows: [
+      ["01–05", "A stranger paid off your debts in full and left no name."],
+      ["06–10", "Your landlord evicted you without reason. The room was let to someone you never saw come or go."],
+      ["11–15", "You woke with a purple stain on your palm. It took a week to scrub off."],
+      ["16–20", "A letter arrived in the handwriting of someone you know is dead."],
+      ["21–25", "Every guild and employer turned you away after “a word from someone.”"],
+      ["26–30", "A street preacher stared at you and called you by a name that isn't yours."],
+      ["31–35", "Your closest friend joined a reading society and stopped speaking to you."],
+      ["36–40", "You found a coin with three stars stamped over the Emperor's face."],
+      ["41–45", "You were paid triple for a simple delivery. The recipient didn't exist."],
+      ["46–50", "Someone followed you for three nights. Then they turned up dead in the Reik."],
+      ["51–55", "Your home was searched. Nothing was taken, but your papers were rearranged."],
+      ["56–60", "A free clinic took your blood “for the records.”"],
+      ["61–65", "A witch hunter questioned you. He already knew things about you he shouldn't."],
+      ["66–70", "A sickness with no name killed your neighbors. You weren't even ill."],
+      ["71–75", "You saw a fine lady at the market and recognized her as a beggar you once fed."],
+      ["76–80", "You won a fortune at dice. You hadn't placed a bet."],
+      ["81–85", "A tattooed man paid you to forget a face. You still remember it."],
+      ["86–90", "Your master or mentor left Altdorf overnight and left you a sealed box you can't open."],
+      ["91–95", "Someone has been using your name: signing for debts, renting rooms."],
+      ["96–00", "A child pressed a folded note into your hand. It said: “Not yet.”"]
+    ]
+  }
+};
+
+const dieIcon = '<svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 1.5 14 5v6l-6 3.5L2 11V5z"/><path d="M2 5l6 3.5L14 5M8 8.5v6"/></svg>';
+
+function parseRange(r) {
+  const [a, b] = r.split("–").map(s => s.trim());
+  const n = s => (s === "00" ? 100 : parseInt(s, 10));
+  return [n(a), n(b ?? a)];
+}
+
+function esc(s) { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
+
+function buildTable(key) {
+  const t = TABLES[key];
+  const el = document.getElementById(key);
+  const hasThread = t.rows.some(r => r[2]);
+  el.innerHTML = `
+    <div class="tbl-head">
+      <div>
+        <h3 id="${key}-h">${esc(t.title)}<span class="die">d100</span></h3>
+        <p class="sub">${esc(t.sub)}</p>
+      </div>
+      <button class="roll-btn" type="button" id="roll-${key}">${dieIcon}Roll d100</button>
+    </div>
+    <div class="result" id="res-${key}" aria-live="polite" hidden></div>
+    <ul class="rows">
+      ${t.rows.map((r, i) => `
+        <li data-i="${i}">
+          <span class="rng">${esc(r[0])}</span>
+          <span class="txt">${esc(r[1])}</span>
+          ${hasThread && r[2] ? `<span class="thr">${esc(r[2])}</span>` : ""}
+        </li>`).join("")}
+    </ul>`;
+  document.getElementById(`roll-${key}`).addEventListener("click", () => roll(key));
+}
+
+const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function roll(key) {
+  const t = TABLES[key];
+  const res = document.getElementById(`res-${key}`);
+  const final = Math.floor(Math.random() * 100) + 1;
+  const show = n => String(n === 100 ? "00" : n).padStart(2, "0");
+  const finish = () => {
+    const idx = t.rows.findIndex(r => { const [lo, hi] = parseRange(r[0]); return final >= lo && final <= hi; });
+    const row = t.rows[idx];
+    res.innerHTML = `<span class="num">${show(final)}</span><span class="txt">${esc(row[1])}</span>` +
+      (row[2] ? `<span class="thr"><b>Thread</b>${esc(row[2])}</span>` : "");
+    document.querySelectorAll(`#${key} .rows li`).forEach(li => li.classList.toggle("hit", +li.dataset.i === idx));
+  };
+  res.hidden = false;
+  if (reduce) { finish(); return; }
+  let ticks = 0;
+  const timer = setInterval(() => {
+    res.innerHTML = `<span class="num">${show(Math.floor(Math.random() * 100) + 1)}</span><span class="txt">&nbsp;</span>`;
+    if (++ticks >= 8) { clearInterval(timer); finish(); }
+  }, 45);
+}
+
+function buildNav() {
+  document.getElementById("nav").innerHTML = PAGES.map(p => `<li><a href="#${p.id}" data-page="${p.id}">${esc(p.label)}</a></li>`).join("");
+}
+
+function route() {
+  const id = (location.hash || "").slice(1);
+  const current = PAGES.some(p => p.id === id) ? id : PAGES[0].id;
+  document.querySelectorAll("[data-view]").forEach(v => { v.hidden = v.dataset.view !== current; });
+  document.querySelectorAll("#nav a").forEach(a => {
+    if (a.dataset.page === current) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+  });
+}
+
+buildNav();
+buildTable("bonds");
+buildTable("strange");
+route();
+window.addEventListener("hashchange", route);
+</script>
+</body>
+</html>
