@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Hard Times in Altdorf</title>
+<title>Enemy Within - PC hooks</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&family=Alegreya:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap">
@@ -141,17 +141,15 @@ footer p { margin: 0; max-width: 62ch; }
   <main id="view-hooks" data-view="hooks">
     <section class="intro">
       <h2>How you came to be here</h2>
-      <p>Before the first session, every character rolls on two tables. The first ties you to someone else in the crew. The second is something strange that happened to you this past year, which you still can't explain.</p>
+      <p>Before the first session, every character rolls once on the Bonds table below. It ties you to someone else in the crew.</p>
       <ol class="steps">
         <li><strong>Make someone who goes toward trouble,</strong> and who would stick with this crew once it finds them.</li>
         <li><strong>Roll on Bonds</strong> and apply the result to the character of the player on your left. That player can accept it or make you reroll once.</li>
-        <li><strong>Roll on Something Strange.</strong> Write what you saw and what you did about it, in your own words. Don't ask the GM what it means. Your character doesn't know either.</li>
-        <li><strong>Write one thread on your sheet</strong> for each result: a name, an object, or a question.</li>
+        <li><strong>Write the thread on your sheet:</strong> a name, an object, or a question.</li>
       </ol>
     </section>
 
     <section class="tbl" id="bonds" aria-labelledby="bonds-h"></section>
-    <section class="tbl" id="strange" aria-labelledby="strange-h"></section>
   </main>
 
   <footer>
@@ -191,32 +189,6 @@ const TABLES = {
       ["86–90", "You met at the same shrine, both praying for a miracle.", "What each of you begged for"],
       ["91–95", "You met in the bread line at the Dove of Love soup kitchen.", "What you each needed that day"],
       ["96–00", "Someone you both respect asked you to look out for them.", "Who asked, and how you each feel about it"]
-    ]
-  },
-  strange: {
-    title: "Something Strange Happened",
-    sub: "Sometime in the last year, this happened to you. Describe how it felt and what you did. Duplicate results are rerolled.",
-    rows: [
-      ["01–05", "A stranger paid off your debts in full and left no name."],
-      ["06–10", "Your landlord evicted you without reason. The room was let to someone you never saw come or go."],
-      ["11–15", "You woke with a purple stain on your palm. It took a week to scrub off."],
-      ["16–20", "A letter arrived in the handwriting of someone you know is dead."],
-      ["21–25", "Every guild and employer turned you away after “a word from someone.”"],
-      ["26–30", "A street preacher stared at you and called you by a name that isn't yours."],
-      ["31–35", "Your closest friend joined a reading society and stopped speaking to you."],
-      ["36–40", "You found a coin with three stars stamped over the Emperor's face."],
-      ["41–45", "You were paid triple for a simple delivery. The recipient didn't exist."],
-      ["46–50", "Someone followed you for three nights. Then they turned up dead in the Reik."],
-      ["51–55", "Your home was searched. Nothing was taken, but your papers were rearranged."],
-      ["56–60", "A free clinic took your blood “for the records.”"],
-      ["61–65", "A witch hunter questioned you. He already knew things about you he shouldn't."],
-      ["66–70", "A sickness with no name killed your neighbors. You weren't even ill."],
-      ["71–75", "You saw a fine lady at the market and recognized her as a beggar you once fed."],
-      ["76–80", "You won a fortune at dice. You hadn't placed a bet."],
-      ["81–85", "A tattooed man paid you to forget a face. You still remember it."],
-      ["86–90", "Your master or mentor left Altdorf overnight and left you a sealed box you can't open."],
-      ["91–95", "Someone has been using your name: signing for debts, renting rooms."],
-      ["96–00", "A child pressed a folded note into your hand. It said: “Not yet.”"]
     ]
   }
 };
@@ -293,7 +265,6 @@ function route() {
 
 buildNav();
 buildTable("bonds");
-buildTable("strange");
 route();
 window.addEventListener("hashchange", route);
 </script>
