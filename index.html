@@ -141,15 +141,17 @@ footer p { margin: 0; max-width: 62ch; }
   <main id="view-hooks" data-view="hooks">
     <section class="intro">
       <h2>How you came to be here</h2>
-      <p>Before the first session, every character rolls once on the Bonds table below. It ties you to someone else in the crew.</p>
+      <p>Before the first session, every character rolls once on each table below. Bonds ties you to someone else in the crew. Tokens gives you something small you carry.</p>
       <ol class="steps">
         <li><strong>Make someone who goes toward trouble,</strong> and who would stick with this crew once it finds them.</li>
         <li><strong>Roll on Bonds</strong> and apply the result to the character of the player on your left. That player can accept it or make you reroll once.</li>
         <li><strong>Write the thread on your sheet:</strong> a name, an object, or a question.</li>
+        <li><strong>Roll on Tokens.</strong> Decide what it means to your character and where it came from.</li>
       </ol>
     </section>
 
     <section class="tbl" id="bonds" aria-labelledby="bonds-h"></section>
+    <section class="tbl" id="tokens" aria-labelledby="tokens-h"></section>
   </main>
 
   <footer>
@@ -190,6 +192,112 @@ const TABLES = {
       ["91–95", "You met in the bread line at the Dove of Love soup kitchen.", "What you each needed that day"],
       ["96–00", "Someone you both respect asked you to look out for them.", "Who asked, and how you each feel about it"]
     ]
+  },
+  tokens: {
+    title: "Tokens",
+    sub: "Something small you carry. You decide what it means and where it came from.",
+    rows: [
+      ["01", "Pamphlet: *Mutants Among Us and How to Spot Them*"],
+      ["02", "Sigmar's hammer pendant, cast in lead, the paint worn off"],
+      ["03", "One lucky die, which is not lucky"],
+      ["04", "Letter of recommendation, signed by someone nobody has heard of"],
+      ["05", "Halfling cookbook: *Forty Ways With Pie*"],
+      ["06", "Tin whistle that only plays one note"],
+      ["07", "Broadsheet woodcut of the Emperor, eyes poked out"],
+      ["08", "Bundle of letters tied with ribbon, never sent"],
+      ["09", "Dried flower from a Shallyan temple garden"],
+      ["10", "Pawn ticket for a family heirloom, expired"],
+      ["11", "Pamphlet: *The Wolf and the Hammer: Why Ulric Is Wrong*"],
+      ["12", "A tooth, allegedly from a troll"],
+      ["13", "Wooden toy soldier in Reikland colors, one arm missing"],
+      ["14", "Knotted cord charm in the shape of Ranald's crossed fingers"],
+      ["15", "Marienburg guilder no Altdorf merchant will take"],
+      ["16", "Tobacco pouch made from a pig's bladder"],
+      ["17", "Cracked hand mirror in a silver frame too fine for you"],
+      ["18", "Kislevite fur hat, slightly singed"],
+      ["19", "Manual: *Bargaining With Dwarfs (Don't)*"],
+      ["20", "Unpaid tab from a Nuln tavern, for a very large amount"],
+      ["21", "Locket with the portrait scratched out"],
+      ["22", "Dice carved from something's knuckles"],
+      ["23", "Raven feather from the Garden of Morr"],
+      ["24", "Child's drawing of you, labeled \"hero\""],
+      ["25", "Pamphlet: *The Comet Means Something, and Here Is What*"],
+      ["26", "Wax seal stamp of a noble house that no longer exists"],
+      ["27", "Mismatched pair of gloves, one very expensive"],
+      ["28", "Small jar of Reik water, blessed (allegedly)"],
+      ["29", "Tilean tarot deck, the Fool missing"],
+      ["30", "Stirland sausage, preserved for a very long time"],
+      ["31", "Map of the Altdorf sewers, wrong"],
+      ["32", "Souvenir tankard from the Bögenhafen Schaffenfest"],
+      ["33", "Iron nail from a gibbet"],
+      ["34", "Pamphlet: *Is Your Neighbour a Witch? A Quiz*"],
+      ["35", "A single gilded spur"],
+      ["36", "Certificate of apprenticeship, torn in half"],
+      ["37", "Prayer to Verena, copied out in your own careful hand"],
+      ["38", "Brass compass that points slightly east of north"],
+      ["39", "Wanted poster with a face that looks a bit like yours"],
+      ["40", "Wooden spoon you whittled yourself"],
+      ["41", "Fishhook necklace, blessed by a priest of Manann"],
+      ["42", "Spyglass with a cracked lens"],
+      ["43", "Love poem, half finished and terrible"],
+      ["44", "Fortune from a Strigany seer: \"Beware the bridge.\""],
+      ["45", "Pamphlet: *Sigmar Was a Halfling: The Suppressed Truth*"],
+      ["46", "Purse of foreign coins, mostly Bretonnian"],
+      ["47", "The glove that started your duel"],
+      ["48", "Ticket to the Imperial Zoo, unused"],
+      ["49", "Snuffbox with a hidden compartment, empty"],
+      ["50", "Embroidered handkerchief with someone else's initials"],
+      ["51", "Small icon of Myrmidia from a Tilean mercenary"],
+      ["52", "Clay pipe carved like a goblin's head"],
+      ["53", "Note in a language you can't read"],
+      ["54", "Key to a lock you've never found"],
+      ["55", "Pressed four-leaf clover from the Moot"],
+      ["56", "*The Life of Magnus the Pious*, every page annotated"],
+      ["57", "Dented helmet from your father's regiment"],
+      ["58", "Jar of goose fat"],
+      ["59", "Pamphlet: *Wizards: Our Betters, or Our Doom?*"],
+      ["60", "Ring too small to wear"],
+      ["61", "Tin of mismatched buttons"],
+      ["62", "Bag of marbles, one of Marienburg glass"],
+      ["63", "Receipt from a physician who was later hanged"],
+      ["64", "Wolf's tail on a cord"],
+      ["65", "Bronze medal for a sack race in Talabheim"],
+      ["66", "Oath written in blood, signed by you and someone else"],
+      ["67", "Pamphlet: *Gentleman of the Road: The Memoirs of a Highwayman*"],
+      ["68", "Song sheet for a bawdy ballad about a countess"],
+      ["69", "Gnawed chicken bone you're sure is lucky"],
+      ["70", "Gold dwarf beard bead, given in thanks"],
+      ["71", "Seed pouch from your mother's garden"],
+      ["72", "Grandfather's wooden false teeth"],
+      ["73", "Small painting of a ship that sank"],
+      ["74", "Pilgrim's badge from a shrine to Sigmar"],
+      ["75", "Letter from an elf. It is extremely condescending."],
+      ["76", "Stuffed rat on a string"],
+      ["77", "Pamphlet: *Proper Etiquette for the Imperial Court*"],
+      ["78", "Brass knuckles engraved \"PRAISE\""],
+      ["79", "Small hourglass. The sand sticks."],
+      ["80", "Membership token of a gambling club that burned down"],
+      ["81", "Hand-drawn family tree with one branch inked over"],
+      ["82", "Candle stub from a vigil for the dead"],
+      ["83", "Bottle of Doktor Feltz's Elixir, mostly gin"],
+      ["84", "Knitting needles and half a scarf"],
+      ["85", "Broken fiddle string"],
+      ["86", "Pamphlet: *Beastmen: Fact or Fiction?*"],
+      ["87", "Military discharge papers, dishonorable"],
+      ["88", "Painted figure of your hometown's patron saint"],
+      ["89", "Rat-catcher's whistle"],
+      ["90", "Mourning ring with no name engraved"],
+      ["91", "Ledger of debts owed to you, all uncollectable"],
+      ["92", "Silver spoon, stolen, and you know from whom"],
+      ["93", "Riverboat ticket to Marienburg, never used"],
+      ["94", "Sketchbook full of the same face"],
+      ["95", "Petrified egg of unknown origin"],
+      ["96", "Pamphlet: *Fifty Recipes for Turnips*"],
+      ["97", "Wooden token good for one free ale, at a tavern you're banned from"],
+      ["98", "Ribbon from a Bretonnian knight's lance"],
+      ["99", "Lucky horseshoe"],
+      ["00", "Letter addressed to you, dated next year"]
+    ]
   }
 };
 
@@ -202,6 +310,7 @@ function parseRange(r) {
 }
 
 function esc(s) { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
+function fmt(s) { return esc(s).replace(/\*(.+?)\*/g, "<em>$1</em>"); }
 
 function buildTable(key) {
   const t = TABLES[key];
@@ -220,7 +329,7 @@ function buildTable(key) {
       ${t.rows.map((r, i) => `
         <li data-i="${i}">
           <span class="rng">${esc(r[0])}</span>
-          <span class="txt">${esc(r[1])}</span>
+          <span class="txt">${fmt(r[1])}</span>
           ${hasThread && r[2] ? `<span class="thr">${esc(r[2])}</span>` : ""}
         </li>`).join("")}
     </ul>`;
@@ -237,7 +346,7 @@ function roll(key) {
   const finish = () => {
     const idx = t.rows.findIndex(r => { const [lo, hi] = parseRange(r[0]); return final >= lo && final <= hi; });
     const row = t.rows[idx];
-    res.innerHTML = `<span class="num">${show(final)}</span><span class="txt">${esc(row[1])}</span>` +
+    res.innerHTML = `<span class="num">${show(final)}</span><span class="txt">${fmt(row[1])}</span>` +
       (row[2] ? `<span class="thr"><b>Thread</b>${esc(row[2])}</span>` : "");
     document.querySelectorAll(`#${key} .rows li`).forEach(li => li.classList.toggle("hit", +li.dataset.i === idx));
   };
@@ -265,6 +374,7 @@ function route() {
 
 buildNav();
 buildTable("bonds");
+buildTable("tokens");
 route();
 window.addEventListener("hashchange", route);
 </script>
