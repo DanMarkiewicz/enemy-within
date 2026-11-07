@@ -121,6 +121,13 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blood); outline
 .rows li.hit { background: var(--blood-wash); }
 .rows li.hit .rng { color: var(--blood); font-weight: 600; }
 
+.lists.split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 2rem; align-items: start; }
+.lists.split .rows li { grid-template-columns: 2.4rem 1fr; }
+@media (max-width: 640px) {
+  .lists.split { grid-template-columns: 1fr; }
+  .lists.split .rows + .rows { border-top: 0; }
+}
+
 footer { color: var(--ink-soft); font-size: .9rem; border-top: 1px solid var(--rule); padding-top: 1rem; }
 footer p { margin: 0; max-width: 62ch; }
 
@@ -195,7 +202,7 @@ const TABLES = {
   },
   tokens: {
     title: "Tokens",
-    sub: "Something small you carry. You decide what it means and where it came from.",
+    split: true,
     rows: [
       ["01", "Pamphlet: *Mutants Among Us and How to Spot Them*"],
       ["02", "Sigmar's hammer pendant, cast in lead, the paint worn off"],
@@ -320,19 +327,22 @@ function buildTable(key) {
     <div class="tbl-head">
       <div>
         <h3 id="${key}-h">${esc(t.title)}<span class="die">d100</span></h3>
-        <p class="sub">${esc(t.sub)}</p>
+        ${t.sub ? `<p class="sub">${esc(t.sub)}</p>` : ""}
       </div>
       <button class="roll-btn" type="button" id="roll-${key}">${dieIcon}Roll d100</button>
     </div>
     <div class="result" id="res-${key}" aria-live="polite" hidden></div>
+    <div class="lists${t.split ? " split" : ""}">
+    ${(t.split ? [0, Math.ceil(t.rows.length / 2)] : [0]).map((start, k, arr) => `
     <ul class="rows">
-      ${t.rows.map((r, i) => `
+      ${t.rows.slice(start, arr[k + 1] ?? t.rows.length).map((r, j) => { const i = start + j; return `
         <li data-i="${i}">
           <span class="rng">${esc(r[0])}</span>
           <span class="txt">${fmt(r[1])}</span>
           ${hasThread && r[2] ? `<span class="thr">${esc(r[2])}</span>` : ""}
-        </li>`).join("")}
-    </ul>`;
+        </li>`; }).join("")}
+    </ul>`).join("")}
+    </div>`;
   document.getElementById(`roll-${key}`).addEventListener("click", () => roll(key));
 }
 
